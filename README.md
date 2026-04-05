@@ -47,9 +47,38 @@ podman run -p your-port:80 \
 
 ### 2-2. Quadlet
 
-```container
+If you have systemd as you init and want the container to start while booting ,```Quadlet``` may satisfy your needs.
 
+```Quadlet(.container)
+[Unit]
+Description=Novagallery Web Image Gallery
+Wants=network.target
+After=network.target
+
+[Container]
+Image=ghcr.io/jayhsu397/novagallery:latest
+PublishPort=your-port:80
+Volume=/path/to/photos:/var/www/novagallery-free/galleries:z
+Volume=/path/to/storage:/var/www/novagallery-free/storage:z
+Environment=SERVER_NAME=your-ip-or-domain
+Environment=URL=http://your-ip-or-domain:your-port
+AutoUpdate=registry
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
 ```
+Remember to run the below commends after configuring you quadlet file
+
+```bash
+systemctl daemon-reload
+systemctl start novagallery
+```
+
 ## 3. Environment Variables
 
 | Name | Description |
