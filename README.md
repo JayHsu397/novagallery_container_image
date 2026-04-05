@@ -2,7 +2,7 @@
 
 Unofficial container image of [novafacile/novagallery](https://github.com/novafacile/novagallery).
 
-Powered By [novafacile](https://novafacile.com/)
+Powered by [novafacile](https://novafacile.com/)
 
 ## 1. Features
 
@@ -13,7 +13,7 @@ What it does:
 - Builds the Apache and PHP environment required by NovaGallery.
 - Allows users to adjust the `url` in `site.php` and the Apache `ServerName` in the vhost configuration file by setting environment variables at container runtime.
 
-To understand how this works, please read [```start.sh```](https://github.com/JayHsu397/novagallery_container_image/blob/main/start.sh).
+To understand how this works, please read [`start.sh`](https://github.com/JayHsu397/novagallery_container_image/blob/main/start.sh).
 
 ## 2. Startup
 
@@ -47,9 +47,9 @@ podman run -p your-port:80 \
 
 ### 2-2. Quadlet
 
-If you have systemd as you init and want the container to start while booting ,```Quadlet``` may satisfy your needs.
+If you use systemd as your init system and want the container to start on boot, `Quadlet` may satisfy your needs.
 
-```Quadlet(.container)
+```ini
 [Unit]
 Description=Novagallery Web Image Gallery
 Wants=network.target
@@ -72,7 +72,8 @@ RestartSec=5
 [Install]
 WantedBy=default.target
 ```
-Remember to run the below commends after configuring you quadlet file
+
+Remember to run the commands below after configuring your Quadlet file:
 
 ```bash
 systemctl daemon-reload
@@ -82,24 +83,24 @@ systemctl start novagallery
 ## 3. Environment Variables
 
 | Name | Description |
-|-|-|
+| - | - |
 | `SERVER_NAME` | The `ServerName` used in the Apache vhost configuration |
 | `URL` | The site URL written into `/var/www/novagallery-free/config/site.php` |
 
 ## 4. Volumes
 
 | Path inside container | Purpose |
-|-|-|
+| - | - |
 | `/var/www/novagallery-free/galleries` | Stores photo galleries |
-| `/var/www/novagallery-free/storage` | Stores cache that helps accelerate the loading of you photo when you restart the gallery|
+| `/var/www/novagallery-free/storage` | Stores cache files that help accelerate photo loading when you restart the gallery |
 
-On SELinux-enabled systems, keep the `:z` or `:Z`suffix on bind mounts.
+On SELinux-enabled systems, keep the `:z` or `:Z` suffix on bind mounts.
 
-## 5. Extended features and Configurations
+## 5. Extended Features and Configurations
 
-This image provides a basic envirommemt based on official examples ,if you need more customized features ,please visit [the source repo of NovaGallery](https://github.com/novafacile) and bind your own configuaration file into the container.
+This image provides a basic environment based on the official examples. If you need more customized features, please visit [the source repo of NovaGallery](https://github.com/novafacile) and bind your own configuration file into the container.
 
-## 6.License
+## 6. License
 
 This repository is a packaging project.
 
