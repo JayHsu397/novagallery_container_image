@@ -72,4 +72,8 @@ This image provides a basic envirommemt based on official examples ,if you need 
 
 ## 6.License
 
-Though this repo uses MIT License ,this container image includes third-party software such as NovaGallery, which remain licensed under their respective licenses.
+This repository is a packaging project.
+
+- My original packaging files, including `Containerfile` and `start.sh`, are licensed under MIT.
+- The packaged upstream software, [NovaGallery](https://github.com/novafacile/novagallery), is licensed under AGPL-3.0-or-later.
+- As a result, this repository should not be understood as MIT-only.
