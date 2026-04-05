@@ -1,3 +1,11 @@
+This repository contains original files licensed under the MIT License,
+including but not limited to the Containerfile and start.sh.
+
+This repository also packages NovaGallery, which is licensed under
+the GNU Affero General Public License v3.0 or later (AGPL-3.0-or-later).
+
+See README.md for licensing details.
+
 MIT License
 
 Copyright (c) 2026 jayhsu397
