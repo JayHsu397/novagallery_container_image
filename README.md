@@ -13,7 +13,7 @@ What it does:
 - Builds the Apache and PHP environment required by NovaGallery.
 - Allows users to adjust the `url` in `site.php` and the Apache `ServerName` in the vhost configuration file by setting environment variables at container runtime.
 
-To understand how this works, please read `start.sh`.
+To understand how this works, please read [```start.sh```](https://github.com/JayHsu397/novagallery_container_image/blob/main/start.sh).
 
 ## 2. Startup
 
