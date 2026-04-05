@@ -4,18 +4,18 @@ Unofficial container image of [novafacile/novagallery](https://github.com/novafa
 
 Powered By [novafacile](https://novafacile.com/)
 
-## Features
+## 1. Features
 
 This container image packages NovaGallery on top of openSUSE Leap and provides an out-of-the-box deployment experience with minimal configuration.
 
 What it does:
 
-1. Builds the Apache and PHP environment required by NovaGallery.
-2. Allows users to adjust the `url` in `site.php` and the Apache `ServerName` in the vhost configuration file by setting environment variables at container runtime.
+- Builds the Apache and PHP environment required by NovaGallery.
+- Allows users to adjust the `url` in `site.php` and the Apache `ServerName` in the vhost configuration file by setting environment variables at container runtime.
 
 To understand how this works, please read `start.sh`.
 
-## Startup
+## 2. Startup
 
 Pull the container image:
 
@@ -23,7 +23,7 @@ Pull the container image:
 podman pull ghcr.io/jayhsu397/novagallery:latest
 ```
 
-### Command Line
+### 2-1. Command Line
 
 Minimal startup command  
 Visit the gallery at `http://127.0.0.1:8000`
@@ -45,30 +45,31 @@ podman run -p your-port:80 \
   ghcr.io/jayhsu397/novagallery:latest
 ```
 
-## Environment Variables
+### 2-2. Quadlet
+
+```container
+
+```
+## 3. Environment Variables
 
 | Name | Description |
 |-|-|
 | `SERVER_NAME` | The `ServerName` used in the Apache vhost configuration |
 | `URL` | The site URL written into `/var/www/novagallery-free/config/site.php` |
 
-## Volumes
+## 4. Volumes
 
 | Path inside container | Purpose |
 |-|-|
 | `/var/www/novagallery-free/galleries` | Stores photo galleries |
 | `/var/www/novagallery-free/storage` | Stores cache that helps accelerate the loading of you photo when you restart the gallery|
 
-## Notes
+On SELinux-enabled systems, keep the `:z` or `:Z`suffix on bind mounts.
 
-- Mounting `/var/www/novagallery-free/storage` as a volume is recommended for persistence and faster loading.
-- On SELinux-enabled systems, keep the `:z` suffix on bind mounts.
-- This image is intended for simple self-hosted deployment.
-
-## Extended features and Configurations
+## 5. Extended features and Configurations
 
 This image provides a basic envirommemt based on official examples ,if you need more customized features ,please visit [the source repo of NovaGallery](https://github.com/novafacile) and bind your own configuaration file into the container.
 
-## License
+## 6.License
 
 Though this repo uses MIT License ,this container image includes third-party software such as NovaGallery, which remain licensed under their respective licenses.
