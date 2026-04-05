@@ -2,8 +2,9 @@ FROM docker.io/opensuse/leap:15.6 AS deliverer
 RUN set -eux; \
 	zypper in -y wget unzip; \
 	mkdir /temp; \
-	wget  https://download.novafacile.com/novagallery/novagallery-free.zip; \
-	unzip -d /temp novagallery-free.zip
+	wget -qO /temp/novagallery-free.zip https://download.novafacile.com/novagallery/novagallery-free.zip; \
+	echo 'd15e1362ff23dcc598576cd8d65988937a30baa33ca4c4c9d0074b440d97b187  /temp/novagallery-free.zip' | sha256sum -c - ; \
+	unzip -d /temp /temp/novagallery-free.zip
 
 FROM docker.io/opensuse/leap:15.6
 RUN set -eux;\
