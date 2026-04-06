@@ -40,7 +40,7 @@ podman run -p 8000:80 \
   ghcr.io/jayhsu397/novagallery:latest
 ```
 
-Recommended startup command with persistent storage ,custom URL settings and private mode enabled:
+Recommended startup command with persistent storage ,custom URL settings and private mode (password mode) enabled:
 
 ```bash
 podman run -p your-port:80 \
