@@ -33,6 +33,6 @@ else
 EOF
 fi
 
-chown wwwrun:www /var/www/novagallery-free/storage
+chown -R wwwrun:www /var/www/novagallery-free/storage
 exec start_apache2 -DFOREGROUND
 # This is an openSUSE Leap based image, which uses start_apache2 instead of apache2ctl.
