@@ -66,7 +66,7 @@ If you use systemd as your init system and want the container to start on boot, 
 
 Example with private mode enabled:
 
-```ini
+```$HOME/.config/containers/systemd/novagallery.container
 [Unit]
 Description=Novagallery Web Image Gallery
 Wants=network.target
@@ -95,8 +95,8 @@ WantedBy=default.target
 Remember to run the commands below after configuring your Quadlet file:
 
 ```bash
-systemctl daemon-reload
-systemctl start novagallery
+systemctl --user daemon-reload
+systemctl --user start novagallery
 ```
 
 ## 3. Environment Variables
