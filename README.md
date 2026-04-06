@@ -40,18 +40,7 @@ podman run -p 8000:80 \
   ghcr.io/jayhsu397/novagallery:latest
 ```
 
-Recommended startup command with persistent storage and custom URL settings:
-
-```bash
-podman run -p your-port:80 \
-  -v /path/to/photos:/var/www/novagallery-free/galleries:z \
-  -v /path/to/storage:/var/www/novagallery-free/storage:z \
-  -e SERVER_NAME=your-ip-or-domain \
-  -e URL=http://your-ip-or-domain:your-port \
-  ghcr.io/jayhsu397/novagallery:latest
-```
-
-Recommended startup command with private mode enabled:
+Recommended startup command with persistent storage ,custom URL settings and private mode enabled:
 
 ```bash
 podman run -p your-port:80 \
@@ -74,30 +63,6 @@ If you want to explicitly disable search engine indexing through the built-in ad
 ### 2-2. Quadlet
 
 If you use systemd as your init system and want the container to start on boot, `Quadlet` may satisfy your needs.
-
-```ini
-[Unit]
-Description=Novagallery Web Image Gallery
-Wants=network.target
-After=network.target
-
-[Container]
-Image=ghcr.io/jayhsu397/novagallery:latest
-PublishPort=your-port:80
-Volume=/path/to/photos:/var/www/novagallery-free/galleries:z
-Volume=/path/to/storage:/var/www/novagallery-free/storage:z
-Environment=SERVER_NAME=your-ip-or-domain
-Environment=URL=http://your-ip-or-domain:your-port
-AutoUpdate=registry
-LogDriver=journald
-
-[Service]
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=default.target
-```
 
 Example with private mode enabled:
 
