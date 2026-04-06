@@ -91,7 +91,7 @@ fi
 
 # Prepare and start apache2
 chown -R wwwrun:www /var/www/novagallery-free/storage
-echo 'ServerName localhost' >>/etc/apache2/httpd.conf #To surpressing apache2 warning
+echo 'ServerName localhost' >>/etc/apache2/httpd.conf #To surpress apache2 warning
 
 echo 'Starting apache2...'
 exec start_apache2 -DFOREGROUND
