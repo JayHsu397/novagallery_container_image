@@ -64,7 +64,7 @@ If you want to explicitly disable search engine indexing through the built-in ad
 
 If you use systemd as your init system and want the container to start on boot, `Quadlet` may satisfy your needs.
 
-Example with private mode enabled ,placed in $HOME/.config/containers/systemd/novagallery.container
+Example with private mode enabled ,placed in ```$HOME/.config/containers/systemd/novagallery.container```
 
 ```Quadlet(.container)
 [Unit]
