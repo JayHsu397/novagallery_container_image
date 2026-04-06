@@ -1,16 +1,16 @@
-FROM docker.io/opensuse/leap:15.6 AS deliverer
+FROM docker.io/opensuse/leap:16.0 AS deliverer
 RUN set -eux; \
 	zypper in -y wget unzip; \
 	mkdir /temp; \
-	wget -qO /temp/novagallery-free.zip https://github.com/novafacile/novagallery/releases/download/v2.1.0/novagallery-free.zip; \
+	wget -qO /temp/novagallery-free.zip https://download.novafacile.com/novagallery/novagallery-free.zip; \
 	echo 'd15e1362ff23dcc598576cd8d65988937a30baa33ca4c4c9d0074b440d97b187  /temp/novagallery-free.zip' | sha256sum -c - ; \
 	unzip -d /temp /temp/novagallery-free.zip
 
-FROM docker.io/opensuse/leap:15.6
+FROM docker.io/opensuse/leap:16.0
 RUN set -eux;\
 	zypper refresh; \
 	zypper update -y; \
-	zypper in -y apache2 apache2-prefork php8 apache2-mod_php8 php8-gd php8-exif \
+	zypper in -y apache2 apache2-prefork php8 php8-cli apache2-mod_php8 php8-gd php8-exif \
 		php8-mbstring php8-gettext php8-openssl; \
 	zypper clean -a; \
 	a2enmod rewrite

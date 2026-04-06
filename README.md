@@ -12,8 +12,12 @@ What it does:
 
 - Builds the Apache and PHP environment required by NovaGallery.
 - Allows users to adjust the `url` in `site.php` and the Apache `ServerName` in the vhost configuration file by setting environment variables at container runtime.
+- Supports generating `addons.php` at container runtime, including `Password Protection`, `Robots Meta Tag`, and the basic switch for `novaGallery Pro`.
+- Automatically generates a password hash for `Password Protection` when private mode is enabled.
 
-（If a custom `site.php` or Apache vhost configuration is bind-mounted by the user, the container will not generate or overwrite those files.）
+(If a custom `site.php`, `addons.php`, or Apache vhost configuration is bind-mounted by the user, the container will not generate or overwrite those files.)
+
+(To be more specific, environment variables only affect the initial generation of these configuration files. If the files already exist inside the container or are bind-mounted by the user, the container will not overwrite them.)
 
 To understand how this actually works, please read [`start.sh`](https://github.com/JayHsu397/novagallery_container_image/blob/main/start.sh).
 
@@ -47,6 +51,26 @@ podman run -p your-port:80 \
   ghcr.io/jayhsu397/novagallery:latest
 ```
 
+Recommended startup command with private mode enabled:
+
+```bash
+podman run -p your-port:80 \
+  -v /path/to/photos:/var/www/novagallery-free/galleries:z \
+  -v /path/to/storage:/var/www/novagallery-free/storage:z \
+  -e SERVER_NAME=your-ip-or-domain \
+  -e URL=http://your-ip-or-domain:your-port \
+  -e ADDONS_PRIVATE_MODE_ENABLE=true \
+  -e PASSWORD=your-password \
+  ghcr.io/jayhsu397/novagallery:latest
+```
+
+If you want to explicitly disable search engine indexing through the built-in addon, you may additionally set:
+
+```bash
+-e ADDONS_ROBOTS_META_TAG_ENABLE=true \
+-e ADDONS_ROBOTS_META_TAG_ALLOW_INDEX=false
+```
+
 ### 2-2. Quadlet
 
 If you use systemd as your init system and want the container to start on boot, `Quadlet` may satisfy your needs.
@@ -75,6 +99,34 @@ RestartSec=5
 WantedBy=default.target
 ```
 
+Example with private mode enabled:
+
+```ini
+[Unit]
+Description=Novagallery Web Image Gallery
+Wants=network.target
+After=network.target
+
+[Container]
+Image=ghcr.io/jayhsu397/novagallery:latest
+PublishPort=your-port:80
+Volume=/path/to/photos:/var/www/novagallery-free/galleries:z
+Volume=/path/to/storage:/var/www/novagallery-free/storage:z
+Environment=SERVER_NAME=your-ip-or-domain
+Environment=URL=http://your-ip-or-domain:your-port
+Environment=ADDONS_PRIVATE_MODE_ENABLE=true
+Environment=PASSWORD=your-password
+AutoUpdate=registry
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+```
+
 Remember to run the commands below after configuring your Quadlet file:
 
 ```bash
@@ -88,6 +140,11 @@ systemctl start novagallery
 | - | - |
 | `SERVER_NAME` | The `ServerName` used in the Apache vhost configuration |
 | `URL` | The site URL written into `/var/www/novagallery-free/config/site.php` |
+| `ADDONS_PRIVATE_MODE_ENABLE` | Enables the built-in `Password Protection` addon in `addons.php` |
+| `PASSWORD` | The plain password used to generate the password hash automatically when private mode is enabled |
+| `ADDONS_ROBOTS_META_TAG_ENABLE` | Enables the built-in `Robots Meta Tag` addon in `addons.php` |
+| `ADDONS_ROBOTS_META_TAG_ALLOW_INDEX` | Controls whether search engines are allowed to index the gallery when `Robots Meta Tag` is enabled |
+| `ADDONS_NOVAGALLERY_PRO_ENABLE` | Enables the `novaGallery Pro` entry in `addons.php` |
 
 ## 4. Volumes
 
