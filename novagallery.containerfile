@@ -8,6 +8,8 @@ RUN set -eux; \
 
 FROM docker.io/opensuse/leap:16.0
 RUN set -eux;\
+	zypper refresh; \
+	zypper update -y; \
 	zypper in -y apache2 apache2-prefork php8 php8-cli apache2-mod_php8 php8-gd php8-exif \
 		php8-mbstring php8-gettext php8-openssl; \
 	zypper clean -a; \

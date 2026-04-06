@@ -40,7 +40,7 @@ podman run -p 8000:80 \
   ghcr.io/jayhsu397/novagallery:latest
 ```
 
-Recommended startup command with persistent storage ,custom URL settings and private mode (password mode) enabled:
+Recommended startup command with persistent storage, custom URL settings, and private mode (password mode) enabled:
 
 ```bash
 podman run -p your-port:80 \
@@ -64,9 +64,9 @@ If you want to explicitly disable search engine indexing through the built-in ad
 
 If you use systemd as your init system and want the container to start on boot, `Quadlet` may satisfy your needs.
 
-Example with private mode enabled ,placed in ```$HOME/.config/containers/systemd/novagallery.container```
+Example with private mode enabled, ```placed in``` $HOME/.config/containers/systemd/novagallery.container
 
-```Quadlet(.container)
+```Quadlet
 [Unit]
 Description=Novagallery Web Image Gallery
 Wants=network.target
