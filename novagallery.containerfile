@@ -13,7 +13,10 @@ RUN set -eux;\
 	zypper in -y apache2 apache2-prefork php8 php8-cli apache2-mod_php8 php8-gd php8-exif \
 		php8-mbstring php8-gettext php8-openssl; \
 	zypper clean -a; \
-	a2enmod rewrite
+	a2enmod rewrite; \
+	rm -rf /etc/apache2/vhosts.d/*.conf ; \
+	echo 'ServerName localhost' >>/etc/apache2/httpd.conf #To suppress apache2 warning
+
 COPY --from=deliverer --chown=wwwrun:www /temp/novagallery-free /var/www/novagallery-free
 COPY --chmod=0755 start.sh /usr/local/bin/start.sh
 

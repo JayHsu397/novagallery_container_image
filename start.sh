@@ -17,6 +17,17 @@ ADDONS_NOVAGALLERY_PRO_ENABLE="${ADDONS_NOVAGALLERY_PRO_ENABLE:-false}"
 ADDONS_NOVAGALLERY_PRO_ENABLE="${ADDONS_NOVAGALLERY_PRO_ENABLE,,}"
 PASSWORD_HASH=""
 
+# Check if variables are legal
+VAR_BOOL=("$ADDONS_NOVAGALLERY_PRO_ENABLE"
+	"$ADDONS_PRIVATE_MODE_ENABLE"
+	"$ADDONS_ROBOTS_META_TAG_ENABLE"
+	"$ADDONS_ROBOTS_META_TAG_ALLOW_INDEX")
+
+for var in "${VAR_BOOL[@]}"; do
+	[[ "$var" != "true" && "$var" != "false" ]] &&
+		echo "Please use 'true' or 'false', received: $var" && exit 2
+done
+
 # Generating site.php
 if [[ ! -s /var/www/novagallery-free/config/site.php ]]; then
 	echo 'Generating site.php...'
@@ -47,16 +58,12 @@ else
 EOF
 fi
 
-# Checking if PASSWORD exists when needed
-if [[ "${ADDONS_PRIVATE_MODE_ENABLE}" == "true" && ! -s /var/www/novagallery-free/config/addons.php ]]; then
-	echo 'Checking if PASSWORD exists...'
-	PASSWORD="${PASSWORD?Please set your password when ADDONS_PRIVATE_MODE_ENABLE == true}"
-else
-	echo 'Skipping PASSWORD check'
-fi
-
 # Generating password hash when needed
 if [[ "${ADDONS_PRIVATE_MODE_ENABLE}" == "true" && "${PASSWORD_HASH}" == "" && ! -s /var/www/novagallery-free/config/addons.php ]]; then
+	#Checking if PASSWORD exists
+	echo 'Checking if PASSWORD exists...'
+	PASSWORD="${PASSWORD?Please set your password when ADDONS_PRIVATE_MODE_ENABLE == true}"
+
 	# Generate PASSWORD_HASH according to the value of PASSWORD
 	echo 'Generating password hash...'
 	PASSWORD_HASH="$(PASSWORD="${PASSWORD}" \
@@ -91,7 +98,6 @@ fi
 
 # Prepare and start apache2
 chown -R wwwrun:www /var/www/novagallery-free/storage
-echo 'ServerName localhost' >>/etc/apache2/httpd.conf #To surpress apache2 warning
 
 echo 'Starting apache2...'
 exec start_apache2 -DFOREGROUND
