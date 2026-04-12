@@ -14,7 +14,6 @@ What it does:
 - Allows users to adjust the `url` in `site.php` and the Apache `ServerName` in the vhost configuration file by setting environment variables at container runtime.
 - Supports generating `addons.php` at container runtime, including `Password Protection`, `Robots Meta Tag`, and the basic switch for `novaGallery Pro`.
 - Automatically generates a password hash for `Password Protection` when private mode is enabled.
-- Tries to keep the runtime logic simple and predictable instead of introducing an overly complex entrypoint design.
 
 This image is intended to be simple and practical:
 
@@ -27,7 +26,6 @@ To be more specific:
 - Environment variables only affect the initial generation of configuration files.
 - If the files already exist inside the container, or are bind-mounted by the user, the container will not overwrite them.
 - Runtime boolean addon-related environment variables are validated before config generation.
-- Supported boolean values are strictly `true` and `false`.
 
 To understand how this actually works, please read [`start.sh`](https://github.com/JayHsu397/novagallery_container_image/blob/main/start.sh).
 
