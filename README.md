@@ -54,7 +54,6 @@ Notes:
 
 - The gallery content should be mounted into `/var/www/novagallery-free/galleries`.
 - Without an additional storage mount, cache-related files will remain inside the container filesystem.
-- For testing or temporary use, this may be acceptable.
 - For long-term use, mounting the storage directory is recommended.
 
 Recommended startup command with persistent storage, custom URL settings, and private mode (password mode) enabled:
@@ -94,7 +93,6 @@ You may also enable the `novaGallery Pro` entry in `addons.php` by setting:
 ```
 
 Please note that addon-related boolean values must use `true` or `false`.  
-Values such as `yes`, `no`, `1`, or `0` are not accepted by the startup script.
 
 ### 2-2. Quadlet
 
