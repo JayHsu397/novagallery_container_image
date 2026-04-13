@@ -172,19 +172,6 @@ This image provides a basic environment based on the official examples.
 
 If you need more customized features, please visit [the source repo of NovaGallery](https://github.com/novafacile) and bind your own configuration file into the container.
 
-This image intentionally keeps the startup logic simple:
-
-- It uses runtime file generation only when needed.
-- It avoids overwriting existing configuration files.
-- It is intended for normal URL values and normal self-hosting use cases.
-
-If you want something more customized, it is completely acceptable to:
-
-- bind your own `site.php`
-- bind your own `addons.php`
-- bind your own Apache vhost configuration
-- modify [`start.sh`](https://github.com/JayHsu397/novagallery_container_image/blob/main/start.sh) for your own deployment needs
-
 ## 6. License
 
 This repository is a packaging project.
