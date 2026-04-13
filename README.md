@@ -133,11 +133,6 @@ systemctl --user daemon-reload
 systemctl --user start novagallery
 ```
 
-If you want the service to start automatically after login or boot, you may also want:
-
-```bash
-systemctl --user enable novagallery
-```
 
 ## 3. Environment Variables
 
